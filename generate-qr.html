@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code WhatsApp</title>
+</head>
+<body>
+    <h1>Escaneie o QR Code com o WhatsApp</h1>
+    <canvas id="qr-canvas"></canvas>
+    <script>
+        const ws = new WebSocket('ws://localhost:3000');
+
+        ws.onmessage = (event) => {
+            const qrCodeData = event.data;
+            const canvas = document.getElementById('qr-canvas');
+            QRCode.toCanvas(canvas, qrCodeData, function (error) {
+                if (error) console.error(error);
+            });
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</body>
+</html>
